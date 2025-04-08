@@ -40,7 +40,7 @@ def plot_training_history(history):
     plt.xlabel('Épocas')
     plt.ylabel('Accuracy')
     plt.legend()
-    plt.grid(color='lightgray', linestyle='--', linewidth=0.5)  # Añade grid
+    plt.grid(visible=True, color='lightgray', linestyle='--', linewidth=0.5)  # Asegura que el grid sea visible
     plt.savefig('img/accuracy.jpg')
     plt.show()
 
@@ -51,7 +51,8 @@ def plot_training_history(history):
     plt.xlabel('Épocas')
     plt.ylabel('Loss')
     plt.legend()
-    plt.grid(color='lightgray', linestyle='--', linewidth=0.5)  # Añade grid
+    plt.grid(visible=True, color='lightgray', linestyle='--', linewidth=0.5)  # Asegura que el grid sea visible
+    plt.savefig('img/loss.jpg')
     plt.show()
 
 def plot_confusion_matrix(model, X_test, y_test):
