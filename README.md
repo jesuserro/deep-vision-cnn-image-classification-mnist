@@ -46,6 +46,24 @@
 - Typical training achieves **98%+ accuracy** on the MNIST test set.
 - Clear diagnostic visuals (accuracy/loss plots, confusion matrix) for quick performance assessment.
 
+### Accuracy Evolution
+
+Below is the accuracy evolution during training and validation:
+
+![Accuracy Evolution](accuracy.jpg)
+
+### Confusion Matrix
+
+The confusion matrix for the MNIST test set is shown below:
+
+![Confusion Matrix](confusion_matrix.jpg)
+
+### Misclassified Samples
+
+Here are some examples of misclassified digits:
+
+![Misclassified Samples](misclassified_samples.jpg)
+
 ## 🤝 Contributing
 
 Feel free to open issues or submit pull requests if you have improvements or new ideas!
