@@ -6,7 +6,7 @@ from functions import (
     plot_training_history,
     plot_confusion_matrix,
     visualize_misclassified_samples,
-    predict_digit_in_image
+    predict_and_save_digit_in_image
 )
 
 # 1. Load and preprocess data
@@ -25,12 +25,13 @@ print("Test loss:", test_loss)
 print("Test accuracy:", test_acc)
 
 # 5. Predict a digit in an image of the Shroud of Turin
-predicted_digit = predict_digit_in_image(model, "img/turin-shroud_number.jpg")
+predicted_digit = predict_and_save_digit_in_image(
+    model, 
+    image_path="img/turin-shroud_number.jpg",
+    output_path="img/turin-shroud_number_processed.jpg"  # Nombre que prefieras
+)
 
-if predicted_digit == 3:
-    print("The model detects a '3' in the image of the Shroud of Turin.")
-else:
-    print(f"The model believes the number in the image of the Shroud is a '{predicted_digit}'.")
+print(f"El modelo cree que el dígito es: {predicted_digit}")
 
 # 6. Plot training metrics
 plot_training_history(history)

@@ -2,7 +2,7 @@ import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
-from PIL import Image, ImageOps
+from PIL import Image
 
 def load_and_preprocess_data():
     (X_train, y_train), (X_test, y_test) = tf.keras.datasets.mnist.load_data()
@@ -86,36 +86,31 @@ def visualize_misclassified_samples(X_test, y_test, y_pred):
     # plt.show()
 
 
-def predict_digit_in_image(model, image_path):
+def predict_and_save_digit_in_image(model, image_path, output_path="img/processed_turin_shroud.jpg"):
     """
-    Carga una imagen externa, la preprocesa a 28x28 en escala de grises,
-    invierte y umbraliza la imagen para maximizar el contraste, 
-    y devuelve el dígito que el modelo MNIST "ve".
+    Carga una imagen externa, la procesa (umbralizado y resize),
+    la guarda en disco, y devuelve el dígito que el modelo MNIST "ve".
     """
-    # 1. Cargar la imagen en escala de grises
-    img = Image.open(image_path).convert('L')  # 'L' => grayscale
+    # 1. Cargar en escala de grises
+    img = Image.open(image_path).convert('L')
     
-    # 2. (Opcional) Invertir la imagen para que el "3" blanco se vuelva oscuro y el fondo claro
-    img = ImageOps.invert(img)
-
-    # 3. Umbralizar (threshold) para que quede en blanco y negro (binarizada)
-    #    Ajusta 'threshold_value' según tu caso (128 es un valor típico)
+    # 2. Umbralizar (Threshold):
+    # Si el pixel > 128 => píxel blanco (255), de lo contrario => píxel negro (0).
     threshold_value = 128
     img = img.point(lambda x: 255 if x > threshold_value else 0)
-    
-    # 4. Redimensionar a 28x28
+
+    # 3. Redimensionar a 28x28
     img = img.resize((28, 28))
 
-    # 5. Convertir en array NumPy
-    img_arr = np.array(img)  # shape: (28, 28)
+    # 4. Guardar la imagen procesada (para ver cómo queda)
+    img.save(output_path)
+    print(f"Imagen procesada guardada en: {output_path}")
 
-    # 6. Normalizar a [0,1]
-    img_arr = img_arr / 255.0
-
-    # 7. Expandir dimensiones para que sea (1, 28, 28, 1)
-    img_arr = np.expand_dims(img_arr, axis=(0, -1))
-
-    # 8. Predecir
+    # 5. Convertir a NumPy y normalizar [0,1]
+    img_arr = np.array(img) / 255.0
+    img_arr = np.expand_dims(img_arr, axis=(0, -1))  # (1,28,28,1)
+    
+    # 6. Predecir dígito
     predictions = model.predict(img_arr)
     predicted_digit = np.argmax(predictions, axis=1)[0]
     
