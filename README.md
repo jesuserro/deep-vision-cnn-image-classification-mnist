@@ -4,6 +4,12 @@
 
 **Deep Vision** is a “Hello World” project in deep learning, focused on **building a Convolutional Neural Network (CNN)** to classify handwritten digits using the **MNIST** dataset. Perfect for beginners who want to explore computer vision techniques with a straightforward yet impactful example.
 
+### Misclassified Samples
+
+Here are some examples of misclassified digits:
+
+![Misclassified Samples](img/misclassified_samples.jpg)
+
 ## 🎯 Features
 
 - **Data Loading & Preprocessing:** Quickly load MNIST data and normalize pixel values.
@@ -57,12 +63,6 @@ Below is the accuracy evolution during training and validation:
 The confusion matrix for the MNIST test set is shown below:
 
 ![Confusion Matrix](img/confusion_matrix.jpg)
-
-### Misclassified Samples
-
-Here are some examples of misclassified digits:
-
-![Misclassified Samples](img/misclassified_samples.jpg)
 
 ## 🤝 Contributing
 
