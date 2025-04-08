@@ -2,6 +2,7 @@ import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+from PIL import Image
 
 def load_and_preprocess_data():
     (X_train, y_train), (X_test, y_test) = tf.keras.datasets.mnist.load_data()
@@ -42,7 +43,7 @@ def plot_training_history(history):
     plt.legend()
     plt.grid(visible=True, color='lightgray', linestyle='--', linewidth=0.5)
     plt.savefig('img/accuracy.jpg')
-    plt.show()
+    # plt.show()
 
     plt.figure()
     plt.plot(history.history['loss'], label='Entrenamiento', color='#ff7f0e')  # Naranja
@@ -53,7 +54,7 @@ def plot_training_history(history):
     plt.legend()
     plt.grid(visible=True, color='lightgray', linestyle='--', linewidth=0.5)
     plt.savefig('img/loss.jpg')
-    plt.show()
+    # plt.show()
 
 def plot_confusion_matrix(model, X_test, y_test):
     y_pred_probs = model.predict(X_test)
@@ -63,7 +64,7 @@ def plot_confusion_matrix(model, X_test, y_test):
     disp.plot(cmap='Blues')
     plt.title("Matriz de Confusión - MNIST")
     plt.savefig('img/confusion_matrix.jpg')
-    plt.show()
+    # plt.show()
     return y_pred
 
 def visualize_misclassified_samples(X_test, y_test, y_pred):
@@ -82,4 +83,33 @@ def visualize_misclassified_samples(X_test, y_test, y_pred):
         plt.title(f"Pred: {pred_label}, Real: {true_label}")
         plt.axis('off')
     plt.savefig('img/misclassified_samples.jpg')
-    plt.show()
+    # plt.show()
+
+
+def predict_digit_in_image(model, image_path):
+    """
+    Carga una imagen externa, la preprocesa a 28x28 en escala de grises
+    y devuelve el dígito que el modelo MNIST "ve" en esa imagen.
+    """
+    # 1. Carga la imagen y pásala a escala de grises
+    img = Image.open(image_path).convert('L')  # 'L' => grayscale
+    
+    # 2. Redimensiona a 28x28 (tamaño de MNIST)
+    img = img.resize((28, 28))
+    
+    # 3. Convierte a array NumPy
+    img_arr = np.array(img)  # shape: (28, 28)
+    
+    # 4. Normaliza (0-1)
+    img_arr = img_arr / 255.0
+    
+    # 5. Expande dimensiones para que sea (1, 28, 28, 1)
+    img_arr = np.expand_dims(img_arr, axis=(0, -1))
+    
+    # 6. Predice
+    predictions = model.predict(img_arr)
+    
+    # 7. Toma el índice (dígito) con mayor probabilidad
+    predicted_digit = np.argmax(predictions, axis=1)[0]
+    
+    return predicted_digit
