@@ -34,8 +34,8 @@ def evaluate_model(model, X_test, y_test):
 
 def plot_training_history(history):
     plt.figure()
-    plt.plot(history.history['accuracy'], label='Entrenamiento', color='#1f77b4')  # Azul oscuro
-    plt.plot(history.history['val_accuracy'], label='Validación', color='#2ca02c')  # Verde
+    plt.plot(history.history['accuracy'], label='Entrenamiento', color='#ff7f0e')  # Naranja
+    plt.plot(history.history['val_accuracy'], label='Validación', color='#1f77b4')  # Azul
     plt.title('Evolución de la Accuracy')
     plt.xlabel('Épocas')
     plt.ylabel('Accuracy')
@@ -45,8 +45,8 @@ def plot_training_history(history):
     plt.show()
 
     plt.figure()
-    plt.plot(history.history['loss'], label='Entrenamiento', color='#1f77b4')  # Azul oscuro
-    plt.plot(history.history['val_loss'], label='Validación', color='#2ca02c')  # Verde
+    plt.plot(history.history['loss'], label='Entrenamiento', color='#ff7f0e')  # Naranja
+    plt.plot(history.history['val_loss'], label='Validación', color='#1f77b4')  # Azul
     plt.title('Evolución de la Pérdida (Loss)')
     plt.xlabel('Épocas')
     plt.ylabel('Loss')
