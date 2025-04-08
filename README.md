@@ -58,6 +58,10 @@ Below is the accuracy evolution during training and validation:
 
 ![Accuracy Evolution](img/accuracy.jpg)
 
+### Loss Evolution
+
+![Accuracy Evolution](img/loss.jpg)
+
 ### Confusion Matrix
 
 The confusion matrix for the MNIST test set is shown below:

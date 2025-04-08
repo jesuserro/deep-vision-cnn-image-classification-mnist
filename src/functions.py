@@ -34,24 +34,24 @@ def evaluate_model(model, X_test, y_test):
 
 def plot_training_history(history):
     plt.figure()
-    plt.plot(history.history['accuracy'], label='Entrenamiento')
-    plt.plot(history.history['val_accuracy'], label='Validación')
+    plt.plot(history.history['accuracy'], label='Entrenamiento', color='#1f77b4')  # Azul oscuro
+    plt.plot(history.history['val_accuracy'], label='Validación', color='#2ca02c')  # Verde
     plt.title('Evolución de la Accuracy')
     plt.xlabel('Épocas')
     plt.ylabel('Accuracy')
     plt.legend()
-    plt.grid(visible=True, color='lightgray', linestyle='--', linewidth=0.5)  # Asegura que el grid sea visible
+    plt.grid(visible=True, color='lightgray', linestyle='--', linewidth=0.5)
     plt.savefig('img/accuracy.jpg')
     plt.show()
 
     plt.figure()
-    plt.plot(history.history['loss'], label='Entrenamiento')
-    plt.plot(history.history['val_loss'], label='Validación')
+    plt.plot(history.history['loss'], label='Entrenamiento', color='#1f77b4')  # Azul oscuro
+    plt.plot(history.history['val_loss'], label='Validación', color='#2ca02c')  # Verde
     plt.title('Evolución de la Pérdida (Loss)')
     plt.xlabel('Épocas')
     plt.ylabel('Loss')
     plt.legend()
-    plt.grid(visible=True, color='lightgray', linestyle='--', linewidth=0.5)  # Asegura que el grid sea visible
+    plt.grid(visible=True, color='lightgray', linestyle='--', linewidth=0.5)
     plt.savefig('img/loss.jpg')
     plt.show()
 
@@ -59,32 +59,9 @@ def plot_confusion_matrix(model, X_test, y_test):
     y_pred_probs = model.predict(X_test)
     y_pred = np.argmax(y_pred_probs, axis=1)
     cm = confusion_matrix(y_test, y_pred)
-
-    # Crear un mapa de colores personalizado (gradación de rojo a verde)
-    cmap = plt.cm.RdYlGn
-
-    # Normalizar la matriz de confusión para que los colores sean proporcionales
-    cm_normalized = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
-
-    plt.figure(figsize=(8, 8))
-    plt.imshow(cm_normalized, interpolation='nearest', cmap=cmap)
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=range(10))
+    disp.plot(cmap='Blues')
     plt.title("Matriz de Confusión - MNIST")
-    plt.colorbar()
-
-    # Añadir etiquetas a los ejes
-    tick_marks = np.arange(len(range(10)))
-    plt.xticks(tick_marks, range(10))
-    plt.yticks(tick_marks, range(10))
-
-    # Añadir los valores dentro de las celdas
-    thresh = cm_normalized.max() / 2.0
-    for i, j in np.ndindex(cm.shape):
-        plt.text(j, i, f"{cm[i, j]}", 
-                 horizontalalignment="center",
-                 color="white" if cm_normalized[i, j] > thresh else "black")
-
-    plt.ylabel('True label')
-    plt.xlabel('Predicted label')
     plt.savefig('img/confusion_matrix.jpg')
     plt.show()
     return y_pred
