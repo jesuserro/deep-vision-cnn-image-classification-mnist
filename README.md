@@ -50,19 +50,19 @@
 
 Below is the accuracy evolution during training and validation:
 
-![Accuracy Evolution](accuracy.jpg)
+![Accuracy Evolution](img/accuracy.jpg)
 
 ### Confusion Matrix
 
 The confusion matrix for the MNIST test set is shown below:
 
-![Confusion Matrix](confusion_matrix.jpg)
+![Confusion Matrix](img/confusion_matrix.jpg)
 
 ### Misclassified Samples
 
 Here are some examples of misclassified digits:
 
-![Misclassified Samples](misclassified_samples.jpg)
+![Misclassified Samples](img/misclassified_samples.jpg)
 
 ## 🤝 Contributing
 
